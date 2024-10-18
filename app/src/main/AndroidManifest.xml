@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/icono_ima"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/icono_ima_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"> <!-- Tema principal de la aplicación -->
+
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme"> <!-- Usa el tema principal -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".MainActivity" />
+    </application>
+
+
+
+</manifest>

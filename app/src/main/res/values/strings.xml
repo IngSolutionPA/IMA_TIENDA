@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">IMA_TIENDA</string>
+    <string name="title_activity_splash">SplashActivity</string>
+</resources>
