@@ -12,7 +12,7 @@ class SplashActivity : AppCompatActivity() {
         // Duración del Splash Screen
         val splashScreenDuration = 2000L
 
-        // Inicia la MainActivity después de la duración del splash
+        // Inicia la com.example.ima_tienda.MainActivity después de la duración del splash
         android.os.Handler().postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
             finish() // Finaliza SplashActivity para que no regrese con el botón atrás

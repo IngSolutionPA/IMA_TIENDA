@@ -12,7 +12,7 @@
         android:src="@drawable/logo"
         android:layout_margin="16dp"/>
 
-    <!-- RecyclerView para el menú -->
+    <!-- RecyclerView para el menú de gestión -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/menuRecyclerView"
         android:layout_width="match_parent"

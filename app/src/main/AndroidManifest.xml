@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- Permiso para el uso de la cámara -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application
         android:allowBackup="true"
@@ -8,21 +16,28 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icono_ima_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"> <!-- Tema principal de la aplicación -->
-
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".VerificarPersonaActivity"
+            android:exported="false" />
+        <activity android:name=".InventarioActivity" />
+        <activity android:name=".GestionarProductosActivity" />
+        <activity
+            android:name=".DialogForm"
+            android:exported="false" /> <!-- SplashActivity que se lanza al iniciar la aplicación -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:theme="@style/AppTheme"> <!-- Usa el tema principal -->
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity android:name=".MainActivity" />
+        </activity> <!-- com.example.ima_tienda.MainActivity para la funcionalidad principal de la aplicación -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
     </application>
-
-
 
 </manifest>

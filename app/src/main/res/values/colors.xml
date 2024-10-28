@@ -1,7 +1,9 @@
 <resources>
     <color name="colorPrimary">#6200EE</color> <!-- Color primario -->
     <color name="colorPrimaryDark">#3700B3</color> <!-- Color oscuro -->
-    <color name="colorAccent">#03DAC5</color> <!-- Color de acento -->
     <color name="white">#FFFFFF</color> <!-- Blanco -->
-    <color name="black">#000000</color> <!-- Negro -->
+    <color name="black">#000000</color>
+    <color name="light_gray">#E0E0E0</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentDark">#C60055</color>
 </resources>
