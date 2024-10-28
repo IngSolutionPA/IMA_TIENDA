@@ -40,8 +40,22 @@ interface ApiService {
         @Part imagen: MultipartBody.Part? // La imagen puede ser opcional
     ): Call<Producto>
 
+    // Funciones para ferias
+    @GET("ferias") // Cambia esto según tu endpoint
+    fun obtenerFerias(): Call<List<Feria>>
 
+    @POST("ferias/agregar/") // Asegúrate de que la URL coincida con tu servidor
+    fun agregarFeria(
+        @Body feria: Feria // Enviar objeto Feria directamente
+    ): Call<Feria>
 
+    @DELETE("ferias/eliminar/{id}")
+    fun eliminarFeria(@Path("id") id: Int): Call<Void>
 
+    @POST("ferias/editar/{id}")
+    fun editarFeria(
+        @Path("id") id: Int,
+        @Body feria: Feria // Enviar objeto Feria directamente
+    ): Call<Feria>
 
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Logo de la aplicación -->
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo"
+        android:layout_margin="16dp"/>
+
+    <!-- Botón para agregar una nueva feria -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/agregarFeriaButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agregar Feria"
+        android:layout_below="@id/logoImageView"
+        android:layout_margin="16dp"
+        android:layout_alignParentStart="true"
+        app:strokeColor="@android:color/white"
+        app:strokeWidth="1dp"
+        android:textColor="@android:color/white"
+        app:backgroundTint="#576B76"/>
+
+    <!-- RecyclerView para mostrar la lista de ferias -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/feriaRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/agregarFeriaButton"
+        android:layout_margin="16dp"
+        android:layout_above="@id/footer"
+        android:layout_weight="1"/>
+
+    <!-- Footer -->
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/darker_gray"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/versionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Versión 1.0"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/creatorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Creado por IMA informática 2024"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+</RelativeLayout>

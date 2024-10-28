@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Campo de texto para el nombre de la feria -->
+    <EditText
+        android:id="@+id/nombreEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre de la Feria"
+        android:inputType="textPersonName"
+        android:padding="12dp" />
+
+    <!-- Campo de texto para la descripción de la feria -->
+    <EditText
+        android:id="@+id/descripcionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descripción"
+        android:inputType="textMultiLine"
+        android:padding="12dp"
+        android:lines="3"
+        android:gravity="top"
+        android:scrollbars="vertical" />
+
+    <!-- Campo de texto para la ubicación de la feria -->
+    <EditText
+        android:id="@+id/ubicacionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ubicación"
+        android:inputType="textPostalAddress"
+        android:padding="12dp" />
+
+</LinearLayout>
