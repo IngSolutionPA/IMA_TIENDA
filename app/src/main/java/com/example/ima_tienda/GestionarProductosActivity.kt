@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import okhttp3.MediaType.Companion.toMediaType
@@ -36,7 +37,7 @@ class GestionarProductosActivity : AppCompatActivity() {
     private val productos = mutableListOf<Producto>()
     private lateinit var imagenPreview: ImageView // Para mostrar la imagen seleccionada
     private var imagenUri: Uri? = null // Variable para almacenar la URI de la imagen seleccionada
-
+    private lateinit var loadingAnimation: LottieAnimationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +48,7 @@ class GestionarProductosActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.productosRecyclerView) // Asegúrate de tener un RecyclerView en tu layout
         recyclerView.layoutManager = LinearLayoutManager(this)
-
+        loadingAnimation = findViewById(R.id.loadingAnimation)
         obtenerProductos() // Llama a la función para obtener productos
 
         findViewById<MaterialButton>(R.id.agregarProductoButton).setOnClickListener {
@@ -57,6 +58,8 @@ class GestionarProductosActivity : AppCompatActivity() {
     }
 
     private fun obtenerProductos() {
+        loadingAnimation.visibility = View.VISIBLE
+        recyclerView.visibility = View.GONE
         apiService.obtenerProductos().enqueue(object : Callback<List<Producto>> {
             override fun onResponse(call: Call<List<Producto>>, response: Response<List<Producto>>) {
                 if (response.isSuccessful) {
@@ -65,8 +68,12 @@ class GestionarProductosActivity : AppCompatActivity() {
                         productos.addAll(listaProductos) // Agregar nuevos productos
                         configurarRecyclerView() // Configura el RecyclerView
                     }
+                    // Oculta la animación de carga y muestra el RecyclerView
+                    loadingAnimation.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
                 } else {
                     Log.e("API", "Error: ${response.code()}")
+                    loadingAnimation.visibility = View.GONE
                 }
             }
 
@@ -316,8 +323,5 @@ class GestionarProductosActivity : AppCompatActivity() {
         // Mostrar el diálogo de confirmación
         builder.show()
     }
-
-
-
 
 }

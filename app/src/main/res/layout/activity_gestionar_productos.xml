@@ -11,7 +11,7 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo"
-    android:layout_margin="16dp"/>
+        android:layout_margin="16dp"/>
 
     <!-- Botón para agregar un nuevo producto -->
     <com.google.android.material.button.MaterialButton
@@ -27,6 +27,17 @@
         android:textColor="@android:color/white"
         app:backgroundTint="#576B76"/>
 
+    <!-- Lottie AnimationView para la animación de carga -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnimation"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/productos"
+    android:visibility="visible" />
+
     <!-- RecyclerView para mostrar la lista de productos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productosRecyclerView"
@@ -35,7 +46,8 @@
         android:layout_below="@id/agregarProductoButton"
         android:layout_margin="16dp"
         android:layout_above="@id/footer"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:visibility="gone"/>
 
     <!-- Footer -->
     <LinearLayout
