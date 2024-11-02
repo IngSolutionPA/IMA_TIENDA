@@ -28,13 +28,6 @@
             android:paddingTop="2dp"
             android:text="Ubicación de la Feria" />
 
-        <TextView
-            android:id="@+id/fechaTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:paddingTop="2dp"
-            android:text="Fecha de la Feria" />
 
         <LinearLayout
             android:layout_width="wrap_content"

@@ -27,12 +27,10 @@ class FeriaAdapter(
     class FeriaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nombreTextView: TextView = itemView.findViewById(R.id.nombreTextView)
         private val ubicacionTextView: TextView = itemView.findViewById(R.id.ubicacionTextView)
-        private val fechaTextView: TextView = itemView.findViewById(R.id.fechaTextView)
 
         fun bind(feria: Feria, onDelete: (Feria) -> Unit, onEdit: (Feria) -> Unit) {
             nombreTextView.text = feria.nombre
             ubicacionTextView.text = feria.ubicacion
-            fechaTextView.text = feria.fecha
 
             itemView.findViewById<View>(R.id.eliminarButton).setOnClickListener { onDelete(feria) }
             itemView.findViewById<View>(R.id.editarButton).setOnClickListener { onEdit(feria) }
