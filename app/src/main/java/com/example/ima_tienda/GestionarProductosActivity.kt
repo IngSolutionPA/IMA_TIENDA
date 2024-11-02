@@ -165,9 +165,8 @@ class GestionarProductosActivity : AppCompatActivity() {
                 .enqueue(object : Callback<Producto> {
                     override fun onResponse(call: Call<Producto>, response: Response<Producto>) {
                         if (response.isSuccessful) {
-                            val productoAgregado = response.body()
-                            println("Producto agregado: $productoAgregado")
                             obtenerProductos() // Opcional, para refrescar la lista de productos
+                            Toast.makeText(this@GestionarProductosActivity, "Producto agregado con éxito", Toast.LENGTH_SHORT).show()
                         } else {
                             Log.e("API", "Error al agregar producto: ${response.code()}")
                             Log.e("API", "Respuesta: ${response.errorBody()?.string()}")
@@ -266,8 +265,8 @@ class GestionarProductosActivity : AppCompatActivity() {
         apiService.editarProducto(id, nombreRequestBody, descripcionRequestBody, precioRequestBody, imagenPart).enqueue(object : Callback<Producto> {
             override fun onResponse(call: Call<Producto>, response: Response<Producto>) {
                 if (response.isSuccessful) {
-                    println("Producto editado: ${response.body()}")
                     obtenerProductos() // Opcional, para refrescar la lista de productos
+                    Toast.makeText(this@GestionarProductosActivity, "Producto Actualizado con éxito", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e("API", "Error al editar producto: ${response.code()}")
                     Log.e("API", "Respuesta: ${response.errorBody()?.string()}")
@@ -282,22 +281,42 @@ class GestionarProductosActivity : AppCompatActivity() {
 
 
 
-    private fun eliminarProducto(id: Int) {
-        apiService.eliminarProducto(id).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    // Volver a cargar los productos después de eliminar
-                    obtenerProductos()
-                } else {
-                    Log.e("API", "Error al eliminar el producto: ${response.code()}")
-                }
-            }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.e("API", "Fallo al eliminar: ${t.message}")
-            }
-        })
+    private fun eliminarProducto(id: Int) {
+        // Crear un diálogo de confirmación
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmar eliminación")
+        builder.setMessage("¿Estás seguro de que quieres eliminar este Producto?")
+
+        // Configurar el botón de confirmación
+        builder.setPositiveButton("Eliminar") { dialog, _ ->
+            // Llamar al servicio API solo si se confirma
+            apiService.eliminarProducto(id).enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        obtenerProductos()
+                        Toast.makeText(this@GestionarProductosActivity, "Producto eliminado con éxito", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Log.e("API", "Error al eliminar Producto: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Log.e("API", "Fallo al eliminar el Producto: ${t.message}")
+                }
+            })
+            dialog.dismiss()
+        }
+
+        // Configurar el botón de cancelación
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        // Mostrar el diálogo de confirmación
+        builder.show()
     }
+
 
 
 

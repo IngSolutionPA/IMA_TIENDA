@@ -86,11 +86,12 @@ class GestionarFeriasActivity : AppCompatActivity() {
 
     private fun agregarFeria(nombre: String, descripcion: String, ubicacion: String) {
         val feria = Feria(nombre = nombre, descripcion = descripcion, ubicacion = ubicacion)
-
+        println(feria);
         apiService.agregarFeria(feria).enqueue(object : Callback<Feria> {
             override fun onResponse(call: Call<Feria>, response: Response<Feria>) {
                 if (response.isSuccessful) {
                     obtenerFerias()
+                    Toast.makeText(this@GestionarFeriasActivity, "Feria agregada con éxito", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e("API", "Error al agregar feria: ${response.code()}")
                 }
@@ -148,6 +149,7 @@ class GestionarFeriasActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Feria>, response: Response<Feria>) {
                 if (response.isSuccessful) {
                     obtenerFerias()
+                    Toast.makeText(this@GestionarFeriasActivity, "Feria Actualizada con éxito", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e("API", "Error al editar feria: ${response.code()}")
                 }
@@ -160,19 +162,39 @@ class GestionarFeriasActivity : AppCompatActivity() {
     }
 
     private fun eliminarFeria(id: Int) {
-        apiService.eliminarFeria(id).enqueue(object : Callback<Void> { // Cambia Unit a Void
-            override fun onResponse(call: Call<Void>, response: Response<Void>) { // Cambia Unit a Void
-                if (response.isSuccessful) {
-                    obtenerFerias()
-                } else {
-                    Log.e("API", "Error al eliminar feria: ${response.code()}")
-                }
-            }
+        // Crear un diálogo de confirmación
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmar eliminación")
+        builder.setMessage("¿Estás seguro de que quieres eliminar esta feria?")
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.e("API", "Fallo al eliminar feria: ${t.message}")
-            }
-        })
+        // Configurar el botón de confirmación
+        builder.setPositiveButton("Eliminar") { dialog, _ ->
+            // Llamar al servicio API solo si se confirma
+            apiService.eliminarFeria(id).enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        obtenerFerias()
+                        Toast.makeText(this@GestionarFeriasActivity, "Feria eliminada con éxito", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Log.e("API", "Error al eliminar feria: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Log.e("API", "Fallo al eliminar feria: ${t.message}")
+                }
+            })
+            dialog.dismiss()
+        }
+
+        // Configurar el botón de cancelación
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        // Mostrar el diálogo de confirmación
+        builder.show()
     }
+
 
 }
