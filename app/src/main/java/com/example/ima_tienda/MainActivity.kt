@@ -3,6 +3,7 @@ package com.example.ima_tienda
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -17,8 +18,8 @@ class MainActivity : AppCompatActivity() {
     // con los nombres reales de tus imágenes en la carpeta drawable.
     private val menuItems = listOf(
         MenuItem("Verificador", R.drawable.qr),
-        MenuItem("Caja", R.drawable.tips),
-        MenuItem("Despachador", R.drawable.box),
+//        MenuItem("Caja", R.drawable.tips),
+//        MenuItem("Despachador", R.drawable.box),
         MenuItem("Inventario", R.drawable.inventory) // Agregar nuevo ítem "Inventario"
     )
 
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         menuRecyclerView = findViewById(R.id.menuRecyclerView)
-        menuRecyclerView.layoutManager = LinearLayoutManager(this)
+        menuRecyclerView.layoutManager = GridLayoutManager(this, 2)
 
         val adapter = MenuAdapter(menuItems) { menuItem ->
             when (menuItem.title) {

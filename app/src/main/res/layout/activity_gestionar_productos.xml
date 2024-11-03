@@ -1,78 +1,122 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#24BBBB">
 
-    <!-- Logo de la aplicación -->
-    <ImageView
-        android:id="@+id/logoImageView"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/logo"
-        android:layout_margin="16dp"/>
+<!-- Imagen de productos -->
+
+<!-- Arco debajo de la imagen de productos -->
+
+<ImageView
+    android:id="@+id/imageView"
+    android:layout_width="wrap_content"
+    android:layout_height="202dp"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginStart="80dp"
+    android:layout_marginEnd="74dp"
+    app:srcCompat="@drawable/inventario" />
+
+<ImageView
+    android:id="@+id/imageView3"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_alignBottom="@+id/imageView"
+    android:layout_alignParentTop="true"
+    android:layout_marginTop="143dp"
+    android:layout_marginBottom="5dp"
+    app:srcCompat="@drawable/arc_1" />
 
     <!-- Botón para agregar un nuevo producto -->
-    <com.google.android.material.button.MaterialButton
+
+    <!-- Lottie AnimationView para la animación de carga -->
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="664dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignBottom="@+id/productosRecyclerView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="-17dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="-177dp"
+        android:background="#482FAF"
+        android:backgroundTint="#F1F1F1" />
+
+    <Button
         android:id="@+id/agregarProductoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar Producto"
-        android:layout_below="@id/logoImageView"
-        android:layout_margin="16dp"
+        android:layout_below="@+id/imageView"
         android:layout_alignParentStart="true"
-        app:strokeColor="@android:color/white"
-        app:strokeWidth="1dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="16dp"
+        android:text="Agregar Producto"
         android:textColor="@android:color/white"
-        app:backgroundTint="#576B76"/>
+        android:backgroundTint="#576B76"
+    android:background="#576B76"
+    android:padding="8dp"/>
 
-    <!-- Lottie AnimationView para la animación de carga -->
+
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loadingAnimation"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="327dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="108dp"
+        android:visibility="visible"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/productos"
-    android:visibility="visible" />
+        app:lottie_rawRes="@raw/productos" />
 
-    <!-- RecyclerView para mostrar la lista de productos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productosRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@id/agregarProductoButton"
-        android:layout_margin="16dp"
-        android:layout_above="@id/footer"
-        android:layout_weight="1"
-        android:visibility="gone"/>
-
-    <!-- Footer -->
-    <LinearLayout
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="508dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/darker_gray"
-        android:orientation="vertical"
-        android:padding="8dp"
-        android:gravity="center">
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="68dp"
+        android:visibility="invisible">
 
-        <TextView
-            android:id="@+id/versionTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Versión 1.0"
-            android:textColor="@android:color/white"/>
+    </androidx.recyclerview.widget.RecyclerView>
 
-        <TextView
-            android:id="@+id/creatorTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Creado por IMA informática 2024"
-            android:textColor="@android:color/white"/>
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="122dp"
+        android:layout_marginEnd="132dp"
+        android:layout_marginBottom="4dp"
+        app:srcCompat="@drawable/log" />
+
+    <TextView
+    android:id="@+id/textView2"
+    android:layout_width="match_parent"
+    android:layout_height="27dp"
+    android:layout_alignTop="@+id/imageView3"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="23dp"
+    android:gravity="center"
+    android:text="Productos"
+    android:textSize="24sp"
+    android:textStyle="bold" />
+
 
 </RelativeLayout>
+

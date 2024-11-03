@@ -1,51 +1,79 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#24BBBB">
 
-    <!-- Logo de la empresa -->
+    <!-- Imagen de productos -->
+
+    <!-- Arco debajo de la imagen de productos -->
+
     <ImageView
-        android:id="@+id/logoImageView"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/logo"
-        android:layout_margin="16dp"/>
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="202dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="74dp"
+        app:srcCompat="@drawable/productos_activity_main" />
 
-    <!-- RecyclerView para el menú -->
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="143dp"
+        android:layout_marginBottom="5dp"
+        app:srcCompat="@drawable/arc_1" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="515dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="-17dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="#482FAF"
+        android:backgroundTint="#F1F1F1" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/menuRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_above="@id/footer"
-        android:layout_below="@id/logoImageView"
-        android:layout_margin="16dp"
-        android:paddingBottom="16dp" />
+        android:layout_height="312dp"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="26dp">
 
-    <!-- Footer -->
-    <LinearLayout
-        android:id="@+id/footer"
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <ImageView
+        android:id="@+id/imageView5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/darker_gray"
-        android:orientation="vertical"
-        android:padding="8dp"
-        android:gravity="center">
+        android:layout_height="50dp"
+        android:layout_above="@+id/menuRecyclerView"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="-548dp"
+        app:srcCompat="@drawable/log" />
 
-        <TextView
-            android:id="@+id/versionTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Versión 1.0"
-            android:textColor="@android:color/white"/>
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:layout_above="@+id/menuRecyclerView"
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="23dp"
+        android:gravity="center"
+        android:text="🇵🇦 Hola, Bienvenido!"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/creatorTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Creado por IMA informática 2024"
-            android:textColor="@android:color/white"/>
-    </LinearLayout>
 
 </RelativeLayout>

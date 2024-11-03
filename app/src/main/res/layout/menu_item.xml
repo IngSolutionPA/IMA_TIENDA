@@ -15,16 +15,15 @@
         android:id="@+id/menuButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Menu Item"
-        android:textSize="18sp"
         android:padding="16dp"
-        app:backgroundTint="#576B76"
+        android:text="Menu Item"
+        android:textSize="12sp"
+        app:backgroundTint="#24BBBB"
         app:cornerRadius="16dp"
         app:icon="@drawable/qr"
         app:iconPadding="8dp"
-        app:iconSize="50dp"
-        app:iconTint="@null"
-       />
+        app:iconSize="40dp"
+        app:iconTint="@null" />
 
 </LinearLayout>
 

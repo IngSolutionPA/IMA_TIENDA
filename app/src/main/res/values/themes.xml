@@ -2,8 +2,8 @@
 
     <!-- Base application theme -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">#24BBBB</item>
+        <item name="colorPrimaryDark">#24BBBB</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/white</item> <!-- Fondo de la ventana -->
         <item name="android:textColor">@android:color/black</item> <!-- Color del texto -->
