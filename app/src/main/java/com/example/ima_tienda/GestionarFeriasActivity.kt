@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.button.MaterialButton
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,6 +22,7 @@ class GestionarFeriasActivity : AppCompatActivity() {
     private lateinit var feriaAdapter: FeriaAdapter
     private lateinit var apiService: ApiService
     private val ferias = mutableListOf<Feria>()
+    private lateinit var loadingAnimation: LottieAnimationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +32,9 @@ class GestionarFeriasActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.feriaRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
+        loadingAnimation = findViewById(R.id.loadingAnimation)
         obtenerFerias()
+
 
         findViewById<MaterialButton>(R.id.agregarFeriaButton).setOnClickListener {
             mostrarDialogoAgregarFeria()
@@ -39,6 +42,8 @@ class GestionarFeriasActivity : AppCompatActivity() {
     }
 
     private fun obtenerFerias() {
+        loadingAnimation.visibility = View.VISIBLE
+        recyclerView.visibility = View.GONE
         apiService.obtenerFerias().enqueue(object : Callback<List<Feria>> {
             override fun onResponse(call: Call<List<Feria>>, response: Response<List<Feria>>) {
                 if (response.isSuccessful) {
@@ -47,6 +52,8 @@ class GestionarFeriasActivity : AppCompatActivity() {
                         ferias.addAll(listaFerias)
                         configurarRecyclerView()
                     }
+                    loadingAnimation.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
                 } else {
                     Log.e("API", "Error: ${response.code()}")
                 }
@@ -54,6 +61,7 @@ class GestionarFeriasActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<Feria>>, t: Throwable) {
                 Log.e("API", "Fallo: ${t.message}")
+                loadingAnimation.visibility = View.GONE
             }
         })
     }

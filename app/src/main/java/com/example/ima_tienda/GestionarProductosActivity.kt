@@ -1,6 +1,5 @@
 package com.example.ima_tienda
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -24,10 +23,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.io.FileOutputStream
 
 class GestionarProductosActivity : AppCompatActivity() {
 
@@ -94,10 +93,10 @@ class GestionarProductosActivity : AppCompatActivity() {
         val precioEditText = dialogView.findViewById<EditText>(R.id.precioEditText)
         val seleccionarImagenButton = dialogView.findViewById<Button>(R.id.seleccionarImagenButton)
 
-        imagenPreview = dialogView.findViewById<ImageView>(R.id.imagenPreview) // Asigna aquí
+        imagenPreview = dialogView.findViewById<ImageView>(R.id.imagenPreview)
+        var imagenUri: Uri? = null // Inicializamos imagenUri como null
 
         seleccionarImagenButton.setOnClickListener {
-            // Código para abrir el selector de imágenes
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(intent, REQUEST_IMAGE_PICK)
         }
@@ -108,8 +107,9 @@ class GestionarProductosActivity : AppCompatActivity() {
             val descripcion = descripcionEditText.text.toString()
             val precio = precioEditText.text.toString().toDoubleOrNull()
 
-            if (nombre.isNotEmpty() && descripcion.isNotEmpty() && precio != null && imagenUri != null) {
-                agregarProducto(nombre, descripcion, precio, imagenUri!!)
+            if (nombre.isNotEmpty() && descripcion.isNotEmpty() && precio != null) {
+                // Llamamos a agregarProducto con imagenUri, que puede ser null si no se seleccionó una imagen
+                agregarProducto(nombre, descripcion, precio, imagenUri)
             } else {
                 Toast.makeText(this, "Por favor, completa todos los campos correctamente", Toast.LENGTH_SHORT).show()
             }
@@ -122,72 +122,84 @@ class GestionarProductosActivity : AppCompatActivity() {
         dialog.show()
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK) {
             data?.data?.let { uri ->
-                if (::imagenPreview.isInitialized) { // Verifica si imagenPreview está inicializado
-                    imagenPreview.setImageURI(uri) // Muestra la imagen seleccionada
-                    imagenPreview.visibility = View.VISIBLE // Muestra el ImageView
-                    imagenUri = uri // Almacena la URI de la imagen seleccionada
-                } else {
-                    // Manejo si imagenPreview no está inicializado
-                    Log.e("GestionarProductosActivity", "imagenPreview no está inicializado")
-                }
+                imagenPreview.setImageURI(uri) // Muestra la imagen seleccionada
+                imagenPreview.visibility = View.VISIBLE // Muestra el ImageView
+                imagenUri = uri // Almacena la URI de la imagen seleccionada
+                Log.d("ImagenSeleccionada", "URI de la imagen: $imagenUri") // Agrega este log
             }
         }
     }
+
 
     companion object {
         private const val REQUEST_IMAGE_PICK = 1001
     }
 
     private fun getFileFromUri(uri: Uri): File? {
-        val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-        val cursor = contentResolver.query(uri, filePathColumn, null, null, null)
+        // Genera un archivo temporal en el almacenamiento interno
+        val tempFile = File(cacheDir, "${System.currentTimeMillis()}.jpg")
 
-        cursor?.use {
-            if (it.moveToFirst()) {
-                val columnIndex = it.getColumnIndex(filePathColumn[0])
-                val filePath = if (columnIndex != -1) it.getString(columnIndex) else null
+        return try {
+            // Abre un InputStream para la URI
+            val inputStream = contentResolver.openInputStream(uri)
+            val outputStream = FileOutputStream(tempFile)
 
-                // Asegúrate de que el filePath no sea nulo antes de crear el objeto File
-                return filePath?.let { path -> File(path) }
+            inputStream?.use { input ->
+                outputStream.use { output ->
+                    input.copyTo(output) // Copia el contenido al nuevo archivo
+                }
+            }
+            tempFile // Retorna el archivo temporal creado
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null // Retorna null si hubo un error
+        }
+    }
+
+
+
+    private fun agregarProducto(nombre: String, descripcion: String, precio: Double, imagenUri: Uri?) {
+        println(imagenUri)
+
+        val nombrePart = nombre.toRequestBody("text/plain".toMediaType())
+        val descripcionPart = descripcion.toRequestBody("text/plain".toMediaType())
+        val precioPart = precio.toString().toRequestBody("text/plain".toMediaType())
+
+        val imagenPart: MultipartBody.Part? = imagenUri?.let {
+            val imagenFile = getFileFromUri(it)
+            if (imagenFile != null && imagenFile.exists()) {
+                val imagenBody = imagenFile.asRequestBody("image/*".toMediaTypeOrNull())
+                MultipartBody.Part.createFormData("imagen", imagenFile.name, imagenBody)
+            } else {
+                null
             }
         }
-        return null // Retorna null si no se pudo obtener el archivo
+
+        // Llamamos al API con el parametro imagen que puede ser null
+        val call = apiService.agregarProductos(nombrePart, descripcionPart, precioPart, imagenPart)
+
+        call.enqueue(object : Callback<Producto> {
+            override fun onResponse(call: Call<Producto>, response: Response<Producto>) {
+                if (response.isSuccessful) {
+                    obtenerProductos()
+                    Toast.makeText(this@GestionarProductosActivity, "Producto agregado con éxito", Toast.LENGTH_SHORT).show()
+                } else {
+                    Log.e("API", "Error al agregar producto: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Producto>, t: Throwable) {
+                Log.e("API", "Fallo al agregar producto: ${t.message}")
+            }
+        })
     }
 
 
-    private fun agregarProducto(nombre: String, descripcion: String, precio: Double, imagenUri: Uri) {
-        val imagenFile = getFileFromUri(imagenUri)
-        if (imagenFile != null) {
-            val nombrePart = nombre.toRequestBody("text/plain".toMediaType())
-            val descripcionPart = descripcion.toRequestBody("text/plain".toMediaType())
-            val precioPart = precio.toString().toRequestBody("text/plain".toMediaType())
-            val imagenPart = imagenFile.asRequestBody("image/*".toMediaTypeOrNull())
-            val imagenMultipart = MultipartBody.Part.createFormData("imagen", imagenFile.name, imagenPart)
-
-            apiService.agregarProductos(nombrePart, descripcionPart, precioPart, imagenMultipart)
-                .enqueue(object : Callback<Producto> {
-                    override fun onResponse(call: Call<Producto>, response: Response<Producto>) {
-                        if (response.isSuccessful) {
-                            obtenerProductos() // Opcional, para refrescar la lista de productos
-                            Toast.makeText(this@GestionarProductosActivity, "Producto agregado con éxito", Toast.LENGTH_SHORT).show()
-                        } else {
-                            Log.e("API", "Error al agregar producto: ${response.code()}")
-                            Log.e("API", "Respuesta: ${response.errorBody()?.string()}")
-                        }
-                    }
-
-                    override fun onFailure(call: Call<Producto>, t: Throwable) {
-                        Log.e("API", "Fallo al agregar producto: ${t.message}")
-                    }
-                })
-        } else {
-            Log.e("Error", "No se pudo obtener el archivo de la URI")
-        }
-    }
 
 
     private fun configurarRecyclerView() {

@@ -4,12 +4,9 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
-import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 
@@ -24,8 +21,9 @@ interface ApiService {
         @Part("nombre") nombre: RequestBody,
         @Part("descripcion") descripcion: RequestBody,
         @Part("precio") precio: RequestBody,
-        @Part imagen: MultipartBody.Part
+        @Part imagen: MultipartBody.Part? // Hace que la imagen sea opcional
     ): Call<Producto>
+
 
     @DELETE("productos/eliminar/{id}")
     fun eliminarProducto(@Path("id") id: Int): Call<Void>

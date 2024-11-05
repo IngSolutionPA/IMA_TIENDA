@@ -5,7 +5,7 @@ data class Producto(
     val nombre: String,
     val descripcion: String,
     val precio: Double,
-    val imagen: String
+    val imagen: String? = null
 )
 data class MensajeRespuesta(
     val message: String
