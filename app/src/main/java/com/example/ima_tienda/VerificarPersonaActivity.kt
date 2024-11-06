@@ -98,15 +98,23 @@ class VerificarPersonaActivity : AppCompatActivity() {
 
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
-            val preview = Preview.Builder().build().also {
-                it.setSurfaceProvider(previewView.surfaceProvider)
-            }
 
-            val imageAnalyzer = ImageAnalysis.Builder().build().also {
-                it.setAnalyzer(cameraExecutor, { imageProxy ->
-                    processImageProxy(imageProxy)
-                })
-            }
+            // Obtener la rotación de la pantalla (Display)
+            val rotation = windowManager.defaultDisplay.rotation
+
+            val preview = Preview.Builder()
+                .setTargetRotation(rotation) // Configura la rotación correcta
+                .build().also {
+                    it.setSurfaceProvider(previewView.surfaceProvider)
+                }
+
+            val imageAnalyzer = ImageAnalysis.Builder()
+                .setTargetRotation(rotation) // Configura la rotación para el análisis de imagen
+                .build().also {
+                    it.setAnalyzer(cameraExecutor, { imageProxy ->
+                        processImageProxy(imageProxy)
+                    })
+                }
 
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
@@ -120,6 +128,7 @@ class VerificarPersonaActivity : AppCompatActivity() {
             }
         }, ContextCompat.getMainExecutor(this))
     }
+
 
     @androidx.annotation.OptIn(ExperimentalGetImage::class)
     @OptIn(ExperimentalGetImage::class)
