@@ -1,27 +1,130 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="#24BBBB">
+
+    <!-- Imagen de productos -->
+
+    <!-- Arco debajo de la imagen de productos -->
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="202dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="74dp"
+        app:srcCompat="@drawable/recibos" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="143dp"
+        android:layout_marginBottom="5dp"
+        app:srcCompat="@drawable/arc_1" />
+
+    <!-- Botón para agregar un nuevo producto -->
+
+    <!-- Lottie AnimationView para la animación de carga -->
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="664dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="-17dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="-177dp"
+        android:background="#482FAF"
+        android:backgroundTint="#F1F1F1" />
+
 
     <TextView
         android:id="@+id/text_cliente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="113dp"
+        android:layout_above="@+id/recycler_compras"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="-65dp"
+        android:padding="16dp"
         android:text="Cliente: "
-        android:textSize="18sp"
-        android:padding="16dp"/>
+        android:textSize="18sp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnimation"
+        android:layout_width="match_parent"
+        android:layout_height="327dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="108dp"
+        android:visibility="visible"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/compra" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_compras"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="508dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="68dp"
+        android:visibility="invisible">
 
-    <Button
-        android:id="@+id/button_back"
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="122dp"
+        android:layout_marginEnd="132dp"
+        android:layout_marginBottom="4dp"
+        app:srcCompat="@drawable/log" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="23dp"
+        android:gravity="center"
+        android:text="Compras"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+    <!-- Icono de cerrar sesión -->
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Volver"
-        android:padding="16dp"/>
-</LinearLayout>
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/circle"
+        android:padding="8dp"> <!-- Ajusta el padding según sea necesario -->
+
+        <ImageView
+            android:id="@+id/logout_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/intercambio" />
+    </FrameLayout><!-- Reemplaza con tu icono -->
+
+
+</RelativeLayout>

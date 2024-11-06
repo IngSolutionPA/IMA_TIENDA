@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ComprasAdapter(private var compras: List<Compra>) : RecyclerView.Adapter<ComprasAdapter.ComprasViewHolder>() {
+class ComprasAdapter(private var comprasAgrupadas: Map<Int, List<Compra>>) : RecyclerView.Adapter<ComprasAdapter.ComprasViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComprasViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_compra, parent, false)
@@ -14,26 +14,33 @@ class ComprasAdapter(private var compras: List<Compra>) : RecyclerView.Adapter<C
     }
 
     override fun onBindViewHolder(holder: ComprasViewHolder, position: Int) {
-        val compra = compras[position]
-        holder.productoTextView.text = compra.producto
-        holder.feriaTextView.text = "Feria: ${compra.feria}"
-        holder.cantidadTextView.text = "Cantidad: ${compra.cantidad}"
-        holder.precioTextView.text = "B/. ${String.format("%.2f", compra.precio)}"
-        holder.fechaCompraTextView.text = "Fecha: ${compra.fecha_compra}"
+        val idCompra = comprasAgrupadas.keys.toList()[position]
+        val productosDeLaCompra = comprasAgrupadas[idCompra]
+
+        if (productosDeLaCompra != null && productosDeLaCompra.isNotEmpty()) {
+            val compra = productosDeLaCompra[0]
+            holder.feriaTextView.text = "Feria: ${compra.feria}"
+            holder.fechaCompraTextView.text = "Fecha: ${compra.fecha_compra}"
+
+            // Crear un formato más estructurado para mostrar los productos
+            val productosInfo = productosDeLaCompra.joinToString(separator = "\n") {
+                "- ${it.producto} x${it.cantidad} • B/. ${String.format("%.2f", it.precio)}"
+            }
+            holder.productoTextView.text = productosInfo
+        }
     }
 
-    override fun getItemCount() = compras.size
 
-    fun updateData(newCompras: List<Compra>) {
-        compras = newCompras
+    override fun getItemCount() = comprasAgrupadas.size
+
+    fun updateData(newCompras: Map<Int, List<Compra>>) {
+        comprasAgrupadas = newCompras
         notifyDataSetChanged()
     }
 
     class ComprasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productoTextView: TextView = itemView.findViewById(R.id.text_producto)
         val feriaTextView: TextView = itemView.findViewById(R.id.text_feria)
-        val cantidadTextView: TextView = itemView.findViewById(R.id.text_cantidad)
-        val precioTextView: TextView = itemView.findViewById(R.id.text_precio)
         val fechaCompraTextView: TextView = itemView.findViewById(R.id.text_fecha_compra)
     }
 }
