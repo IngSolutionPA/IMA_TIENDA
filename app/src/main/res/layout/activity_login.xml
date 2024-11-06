@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#24BBBB">
+
+    <!-- Imagen de productos -->
+
+    <!-- Arco debajo de la imagen de productos -->
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="143dp"
+        android:layout_marginBottom="5dp"
+        app:srcCompat="@drawable/arc_1" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="202dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="74dp"
+        app:srcCompat="@drawable/productos_activity_main" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="515dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="-17dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="#482FAF"
+        android:backgroundTint="#F1F1F1" />
+
+    <EditText
+        android:id="@+id/edit_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/edit_password"
+        android:layout_marginBottom="2dp"
+        android:hint="Nombre de usuario" />
+
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_login"
+        android:layout_marginBottom="27dp"
+        android:hint="Contraseña"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="254dp"
+        android:text="Iniciar sesión" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_above="@+id/edit_username"
+        android:layout_marginBottom="-401dp"
+        app:srcCompat="@drawable/log" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="400dp"
+        android:layout_height="62dp"
+        android:layout_above="@+id/edit_username"
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="65dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
+        android:text="Inicio de Sesión"
+        android:textColor="#373333"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>

@@ -116,6 +116,21 @@ android:background="#24BBBB">
     android:text="Productos"
     android:textSize="24sp"
     android:textStyle="bold" />
+    <!-- Icono de cerrar sesión -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/circle"
+        android:padding="8dp"> <!-- Ajusta el padding según sea necesario -->
+
+        <ImageView
+            android:id="@+id/logout_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/intercambio" />
+    </FrameLayout><!-- Reemplaza con tu icono -->
 
 
 </RelativeLayout>

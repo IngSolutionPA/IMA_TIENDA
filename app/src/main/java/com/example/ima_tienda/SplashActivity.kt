@@ -23,9 +23,21 @@ class SplashActivity : AppCompatActivity() {
         // Duración del Splash Screen
         val splashScreenDuration = 2000L
 
-        // Inicia la MainActivity después de la duración del splash
+        // Comprobar si el usuario ya ha iniciado sesión
+        val sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
+        val cedula = sharedPreferences.getString("cedula", null)
+
+        val nextActivity = if (cedula != null) {
+            // Si el usuario ya está logueado, ir a MainActivity
+            MainActivity::class.java
+        } else {
+            // Si no, ir a LoginActivity
+            LoginActivity::class.java
+        }
+
+        // Iniciar la actividad correspondiente después de la duración del splash
         android.os.Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, nextActivity))
             finish() // Finaliza SplashActivity para que no regrese con el botón atrás
         }, splashScreenDuration)
     }

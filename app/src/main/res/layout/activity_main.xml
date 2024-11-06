@@ -9,16 +9,6 @@
     <!-- Arco debajo de la imagen de productos -->
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="202dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="74dp"
-        app:srcCompat="@drawable/productos_activity_main" />
-
-    <ImageView
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -27,6 +17,16 @@
         android:layout_marginTop="143dp"
         android:layout_marginBottom="5dp"
         app:srcCompat="@drawable/arc_1" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="202dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="74dp"
+        app:srcCompat="@drawable/productos_activity_main" />
 
     <View
         android:id="@+id/view2"
@@ -46,11 +46,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/menuRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="312dp"
+        android:layout_height="401dp"
         android:layout_below="@+id/imageView"
-        android:layout_marginTop="26dp">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginTop="61dp" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -78,6 +76,52 @@
         android:textColor="#373333"
         android:textSize="24sp"
         android:textStyle="bold" />
+
+    <!-- Icono de cerrar sesión -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/circle"
+        android:padding="8dp"> <!-- Ajusta el padding según sea necesario -->
+
+        <ImageView
+            android:id="@+id/logout_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/intercambio" />
+    </FrameLayout><!-- Reemplaza con tu icono -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="17dp">
+
+        <!-- Spinner -->
+        <Spinner
+            android:id="@+id/feriasSpinner"
+            android:layout_width="378dp"
+            android:layout_height="39dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="false"
+            android:layout_centerVertical="true"
+            android:background="@drawable/rounded_background"
+            android:popupBackground="@drawable/button_background"
+            android:layout_toStartOf="@id/editIcon" /> <!-- Coloca el Spinner a la izquierda del ícono -->
+
+        <!-- Icono de Editar -->
+        <ImageView
+            android:id="@+id/editIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/write"
+        android:layout_marginStart="8dp" />
+    </RelativeLayout>
+
 
 
 </RelativeLayout>

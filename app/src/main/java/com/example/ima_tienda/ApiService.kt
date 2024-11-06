@@ -56,4 +56,15 @@ interface ApiService {
         @Body feria: Feria // Enviar objeto Feria directamente
     ): Call<Feria>
 
+    @POST("usuarios/agregar/")
+    fun agregarUsuario(
+        @Body usuario: Usuario // Enviamos el objeto Usuario directamente en el cuerpo de la solicitud
+    ): Call<Usuario>
+
+    @GET("usuarios/{cedula}")
+    fun verificarUsuario(@Path("cedula") cedula: String): Call<List<Usuario>>
+
+    @POST("usuarios/app/") // Asegúrate de que la URL sea correcta
+    fun loginUsuario(@Body loginRequest: LoginRequest): Call<LoginResponse>
+
 }

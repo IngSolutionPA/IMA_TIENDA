@@ -60,6 +60,14 @@
         android:contentDescription="Vista previa de la cámara">
 
     </androidx.camera.view.PreviewView>
+    <Button
+        android:id="@+id/button_manual_registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registro Manual"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"/>
 
     <TextView
         android:id="@+id/scanResult"
@@ -99,6 +107,21 @@
         android:text="Validación de Cédula"
         android:textSize="20sp"
         android:textStyle="bold" />
+    <!-- Icono de cerrar sesión -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/circle"
+        android:padding="8dp"> <!-- Ajusta el padding según sea necesario -->
+
+        <ImageView
+            android:id="@+id/logout_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/intercambio" />
+    </FrameLayout><!-- Reemplaza con tu icono -->
 
 </RelativeLayout>
 

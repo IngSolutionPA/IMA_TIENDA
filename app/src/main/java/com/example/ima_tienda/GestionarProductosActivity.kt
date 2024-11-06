@@ -37,6 +37,7 @@ class GestionarProductosActivity : AppCompatActivity() {
     private lateinit var imagenPreview: ImageView // Para mostrar la imagen seleccionada
     private var imagenUri: Uri? = null // Variable para almacenar la URI de la imagen seleccionada
     private lateinit var loadingAnimation: LottieAnimationView
+    private lateinit var logoutIcon: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +45,7 @@ class GestionarProductosActivity : AppCompatActivity() {
 
         // Inicializa tu apiService aquí
         apiService = ApiClient.getApiService() // Reemplaza con tu método para obtener la instancia de ApiService
-
+        logoutIcon = findViewById(R.id.logout_icon)
         recyclerView = findViewById(R.id.productosRecyclerView) // Asegúrate de tener un RecyclerView en tu layout
         recyclerView.layoutManager = LinearLayoutManager(this)
         loadingAnimation = findViewById(R.id.loadingAnimation)
@@ -53,7 +54,23 @@ class GestionarProductosActivity : AppCompatActivity() {
         findViewById<MaterialButton>(R.id.agregarProductoButton).setOnClickListener {
             mostrarDialogoAgregarProducto() // Muestra el dialog para agregar producto
         }
+        // Configuración del botón de logout
+        logoutIcon.setOnClickListener {
+            logout()
+        }
 
+    }
+
+    private fun logout() {
+        // Eliminar datos de sesión de SharedPreferences
+        val sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+
+        // Regresar al LoginActivity
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish() // Finaliza MainActivity
     }
 
     private fun obtenerProductos() {
