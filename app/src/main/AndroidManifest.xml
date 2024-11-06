@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ComprasActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
@@ -25,7 +28,6 @@
         <activity android:name=".InventarioActivity" />
         <activity android:name=".GestionarFeriasActivity" />
         <activity android:name=".GestionarProductosActivity" />
-
         <activity
             android:name=".SplashActivity"
             android:exported="true"

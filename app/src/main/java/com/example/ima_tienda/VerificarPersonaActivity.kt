@@ -204,7 +204,10 @@ class VerificarPersonaActivity : AppCompatActivity() {
                 // El usuario no existe, agregarlo a la base de datos
                 agregarUsuario(cedula, cliente, details[5], fechaNacimientoRaw, details[7], getCurrentDate())
             } else {
-                Toast.makeText(this, "El usuario ya existe.", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ComprasActivity::class.java)
+                intent.putExtra("CEDULA", cedula)
+                startActivity(intent)
+                //Toast.makeText(this, "Consultando historial de compras...", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -299,6 +302,10 @@ class VerificarPersonaActivity : AppCompatActivity() {
                         dialog.dismiss()
                     } else {
                         // Informar que el usuario ya existe
+
+                        val intent = Intent(this, ComprasActivity::class.java)
+                        intent.putExtra("CEDULA", cedula)
+                        startActivity(intent)
                         Toast.makeText(this, "El usuario ya existe.", Toast.LENGTH_SHORT).show()
                     }
                 }

@@ -64,7 +64,11 @@ interface ApiService {
     @GET("usuarios/{cedula}")
     fun verificarUsuario(@Path("cedula") cedula: String): Call<List<Usuario>>
 
+
     @POST("usuarios/app/") // Asegúrate de que la URL sea correcta
     fun loginUsuario(@Body loginRequest: LoginRequest): Call<LoginResponse>
+
+    @GET("compras/{cedula}")
+    fun obtenerComprasPorCedula(@Path("cedula") cedula: String): Call<List<Compra>>
 
 }
