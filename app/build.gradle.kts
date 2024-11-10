@@ -73,7 +73,6 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.1.0")
     implementation("androidx.camera:camera-view:1.0.0-alpha29") // Opcional, para PreviewView
     implementation ("com.airbnb.android:lottie:5.0.3")
-
     // Dependencia de ML Kit para escaneo de códigos de barras
     implementation("com.google.mlkit:barcode-scanning:17.0.3")
     implementation(libs.material)

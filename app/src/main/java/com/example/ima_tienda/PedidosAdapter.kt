@@ -4,9 +4,11 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class PedidosAdapter(private var pedidos: List<PedidoAgrupado>) : RecyclerView.Adapter<PedidosAdapter.PedidoViewHolder>() {
 
@@ -20,6 +22,7 @@ class PedidosAdapter(private var pedidos: List<PedidoAgrupado>) : RecyclerView.A
         holder.numPedido.text = "Pedido No: ${pedido.pedido_id}"
         holder.fechaPedido.text = "Fecha: ${pedido.fecha_pedido}"
         holder.totalPedido.text = "Total: \$${"%.2f".format(pedido.total)}"
+        holder.estadoPedido.text = "Estado: ${pedido.estado}"
 
         // Limpiar el contenedor de productos antes de agregar nuevos datos
         holder.productosPedidoContainer.removeAllViews()
@@ -70,6 +73,10 @@ class PedidosAdapter(private var pedidos: List<PedidoAgrupado>) : RecyclerView.A
             // Añadir la fila al contenedor de productos
             holder.productosPedidoContainer.addView(productoRow)
         }
+        val qrUrl = pedido.codigo_qr // Ajusta esta URL según tu lógica
+        Glide.with(holder.itemView.context)
+            .load(qrUrl)
+            .into(holder.codigoQR)
     }
 
     override fun getItemCount(): Int = pedidos.size
@@ -84,5 +91,7 @@ class PedidosAdapter(private var pedidos: List<PedidoAgrupado>) : RecyclerView.A
         val fechaPedido: TextView = itemView.findViewById(R.id.fecha_pedido)
         val totalPedido: TextView = itemView.findViewById(R.id.total_pedido)
         val productosPedidoContainer: LinearLayout = itemView.findViewById(R.id.productos_pedido_container)  // Cambié el ID a container
+        val codigoQR: ImageView = itemView.findViewById(R.id.codigo_qr)
+        val estadoPedido: TextView =  itemView.findViewById(R.id.estado_pedido)
     }
 }

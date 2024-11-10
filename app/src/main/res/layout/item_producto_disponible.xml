@@ -75,7 +75,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:text="+"
-            android:backgroundTint="#a0e762"
+            android:backgroundTint="#14BA2F"
             android:textColor="#FFFFFF"/>
 
     </LinearLayout>
