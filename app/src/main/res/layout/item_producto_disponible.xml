@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    card_view:cardElevation="4dp"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardBackgroundColor="#FFFFFF"
+    android:id="@+id/cardViewProducto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="8dp">
+
+        <!-- Checkbox de selección -->
+        <CheckBox
+            android:id="@+id/checkbox_seleccion_producto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Nombre del producto -->
+        <TextView
+            android:id="@+id/text_nombre_producto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Nombre del Producto"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#050505"
+            android:paddingStart="8dp"/>
+
+
+        <!-- Precio del producto -->
+        <TextView
+            android:id="@+id/text_precio_producto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Precio: $0.00"
+            android:textSize="16sp"
+            android:gravity="end"
+            android:textColor="#757575"
+            android:layout_marginEnd="16dp"/>
+
+        <!-- Botón de restar cantidad (rojo) -->
+        <Button
+            android:id="@+id/btn_restar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="-"
+            android:backgroundTint="#e76262"
+            android:textColor="#FFFFFF"/>
+
+        <!-- Campo de cantidad -->
+
+        <EditText
+            android:id="@+id/input_cantidad"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:inputType="number"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:enabled="false"/>
+
+        <!-- Botón de sumar cantidad (verde) -->
+        <Button
+            android:id="@+id/btn_sumar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="+"
+            android:backgroundTint="#a0e762"
+            android:textColor="#FFFFFF"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -9,6 +9,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @GET("productos")
@@ -70,5 +71,9 @@ interface ApiService {
 
     @GET("compras/{cedula}")
     fun obtenerComprasPorCedula(@Path("cedula") cedula: String): Call<List<Compra>>
+
+    @GET("compras/disponible/{cedula}")
+    fun obtenerProductosDisponibles(@Path("cedula") cedula: String): Call<List<ProductoDisponible>>
+
 
 }
