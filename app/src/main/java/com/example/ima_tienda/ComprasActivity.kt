@@ -16,6 +16,9 @@ import com.airbnb.lottie.LottieAnimationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class ComprasActivity : AppCompatActivity() {
 
@@ -29,7 +32,9 @@ class ComprasActivity : AppCompatActivity() {
     private lateinit var logoutIcon: ImageView
     private lateinit var btnComprarProductos: Button
     private lateinit var btnHistorialCompras: Button
+    private lateinit var btnHistorialPedidos: Button
     private lateinit var textViewTotal: TextView
+    private lateinit var pedidosAdapter: PedidosAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +46,14 @@ class ComprasActivity : AppCompatActivity() {
         clienteTextView = findViewById(R.id.text_cliente)
         btnComprarProductos = findViewById(R.id.btn_comprar_productos)
         btnHistorialCompras = findViewById(R.id.btn_historial_compras)
+        btnHistorialPedidos = findViewById(R.id.btn_historial_pedidos)
         textViewTotal = findViewById(R.id.textViewTotal)
 
         // Configuración de RecyclerView para el historial de compras
         recyclerView = findViewById(R.id.recycler_compras)
         recyclerView.layoutManager = LinearLayoutManager(this)
         comprasAdapter = ComprasAdapter(emptyMap())
+
         recyclerView.adapter = comprasAdapter
 
         // Configuración de RecyclerView para productos disponibles
@@ -79,7 +86,116 @@ class ComprasActivity : AppCompatActivity() {
         btnEliminarCarrito.setOnClickListener {
             resetCarrito()  // Llamar al método para restablecer el carrito
         }
+
+        val btnProcesarPedido = findViewById<Button>(R.id.btn_procesar_pedido)
+        btnProcesarPedido.setOnClickListener {
+            procesarPedido()  // Método para procesar el pedido
+        }
+
+        btnHistorialPedidos.setOnClickListener {
+            loadPedidos() // Mostrar historial de pedidos
+        }
+
+
     }
+
+    private fun loadPedidos() {
+        loadingAnimation.visibility = View.VISIBLE
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val pedidosAdapter = PedidosAdapter(emptyList())  // Inicializa el adaptador con una lista vacía
+        recyclerView.adapter = pedidosAdapter
+
+        apiService.obtenerHistorialPedidos(cedula!!).enqueue(object : Callback<List<Pedidos_pendientes>> {
+            override fun onResponse(call: Call<List<Pedidos_pendientes>>, response: Response<List<Pedidos_pendientes>>) {
+                if (response.isSuccessful) {
+                    val pedidos = response.body()
+                    if (pedidos != null) {
+                        val pedidosAgrupados = groupPedidos(pedidos)
+                        pedidosAdapter.updateData(pedidosAgrupados)
+                    } else {
+                        Toast.makeText(this@ComprasActivity, "No se encontraron pedidos", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(this@ComprasActivity, "Error al cargar pedidos", Toast.LENGTH_SHORT).show()
+                }
+                loadingAnimation.visibility = View.GONE
+            }
+
+            override fun onFailure(call: Call<List<Pedidos_pendientes>>, t: Throwable) {
+                Toast.makeText(this@ComprasActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                loadingAnimation.visibility = View.GONE
+            }
+        })
+    }
+
+
+
+
+    private fun procesarPedido() {
+        // Verificar que haya productos en el carrito
+        val productosSeleccionados = productosDisponiblesAdapter.obtenerProductosSeleccionados()
+        if (productosSeleccionados.isEmpty()) {
+            Toast.makeText(this, "Por favor, selecciona productos para comprar.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Mostrar la animación de carga mientras se procesa el pedido
+        loadingAnimation.visibility = View.VISIBLE
+
+        // Aquí podrías agregar la lógica para procesar el pedido
+        val total = calcularTotalDePedido(productosSeleccionados)  // Método que calcula el total del pedido
+
+        // Crear el objeto de pedido
+        val pedido = Pedido(
+            cedulaCliente = cedula!!,
+            totalPedido = total,
+            fechaPedido = obtenerFechaActual(),
+            productos = productosSeleccionados
+        )
+
+        // Llamar a la API para registrar el pedido
+        apiService.registrarPedido(pedido).enqueue(object : Callback<Pedido> {
+            override fun onResponse(call: Call<Pedido>, response: Response<Pedido>) {
+                if (response.isSuccessful) {
+                    // Pedido procesado correctamente
+                    Toast.makeText(this@ComprasActivity, "Pedido procesado correctamente", Toast.LENGTH_SHORT).show()
+                    // Limpiar carrito y actualizar la UI
+                    resetCarrito()
+                    loadCompras()  // Método para volver a mostrar los productos disponibles
+                } else {
+                    // Error al procesar el pedido
+                    Toast.makeText(this@ComprasActivity, "Error al procesar el pedido", Toast.LENGTH_SHORT).show()
+                }
+                loadingAnimation.visibility = View.GONE
+            }
+
+            override fun onFailure(call: Call<Pedido>, t: Throwable) {
+                Toast.makeText(this@ComprasActivity, "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
+                loadingAnimation.visibility = View.GONE
+            }
+        })
+    }
+
+    fun obtenerFechaActual(): String {
+        val fecha = Calendar.getInstance().time // Obtiene la fecha y hora actual
+        val formato = SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault()) // Define el formato de fecha y hora en 12 horas con AM/PM
+        return formato.format(fecha) // Devuelve la fecha y hora formateada como String
+    }
+
+
+    private fun calcularTotalDePedido(productosSeleccionados: List<ProductoSeleccionado>): Double {
+        var total = 0.0
+        for (productoSeleccionado in productosSeleccionados) {
+            val producto = productoSeleccionado.producto
+            val cantidad = productoSeleccionado.cantidad
+            // Multiplicar precio por cantidad antes de sumar al total
+            total += (producto.precio.toDoubleOrNull() ?: 0.0) * cantidad
+        }
+        return total
+    }
+
+
 
     private fun logout() {
         val sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)

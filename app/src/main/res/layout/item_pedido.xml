@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F5F5F5"
+    android:layout_marginBottom="8dp">
+
+    <!-- Número de Pedido -->
+    <TextView
+        android:id="@+id/num_pedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pedido No: 12345"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="monospace"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Fecha del Pedido -->
+    <TextView
+        android:id="@+id/fecha_pedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha: 2024-11-10"
+        android:textSize="12sp"
+        android:textColor="#555555"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="monospace"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Encabezado de Columnas -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Cant."
+            android:textSize="12sp"
+            android:textColor="#000000"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="Producto"
+            android:textSize="12sp"
+            android:textColor="#000000"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Precio Und."
+            android:textSize="12sp"
+            android:textColor="#000000"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Total"
+            android:textSize="12sp"
+            android:textColor="#000000"
+            android:fontFamily="monospace"
+            android:gravity="end"/>
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Contenedor de Productos -->
+    <LinearLayout
+        android:id="@+id/productos_pedido_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Total del Pedido -->
+    <TextView
+        android:id="@+id/total_pedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total: $150.00"
+        android:textSize="16sp"
+        android:textColor="#FF5722"
+        android:fontFamily="monospace"
+        android:gravity="end"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp" />
+</LinearLayout>

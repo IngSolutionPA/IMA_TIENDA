@@ -5,9 +5,6 @@
     android:background="#24BBBB">
 
     <!-- Imagen de productos -->
-
-    <!-- Arco debajo de la imagen de productos -->
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -30,8 +27,6 @@
 
     <!-- Botón para agregar un nuevo producto -->
 
-    <!-- Lottie AnimationView para la animación de carga -->
-
     <View
         android:id="@+id/view2"
         android:layout_width="match_parent"
@@ -46,6 +41,7 @@
         android:layout_marginBottom="-177dp"
         android:background="#482FAF"
         android:backgroundTint="#F1F1F1" />
+
     <TextView
         android:id="@+id/text_cliente"
         android:layout_width="match_parent"
@@ -54,30 +50,40 @@
         android:layout_margin="16dp"
         android:text="Cliente: "
         android:textSize="18sp" />
-    <!-- Botón "Comprar Productos" -->
-    <Button
-        android:id="@+id/btn_comprar_productos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_cliente"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Comprar Productos"
-        android:textSize="12sp" />
 
-    <!-- Botón "Historial de Compras" -->
-    <Button
-        android:id="@+id/btn_historial_compras"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
         android:layout_below="@+id/text_cliente"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_toEndOf="@id/btn_comprar_productos"
-        android:text="Historial de Compras"
-        android:textSize="12sp" />
+        android:layout_marginTop="16dp">
 
+        <!-- Botón "Comprar" -->
+        <Button
+            android:id="@+id/btn_comprar_productos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comprar"
+            android:textSize="12sp"
+            android:layout_marginEnd="16dp"/>
+
+        <!-- Botón "Pedidos" -->
+        <Button
+            android:id="@+id/btn_historial_pedidos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pedidos"
+            android:layout_marginEnd="16dp"/>
+
+        <!-- Botón "Historial" -->
+        <Button
+            android:id="@+id/btn_historial_compras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Historial" />
+
+    </LinearLayout>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loadingAnimation"
@@ -100,9 +106,8 @@
         android:layout_marginTop="132dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="68dp"
-        android:visibility="invisible">
+        android:visibility="invisible" />
 
-    </androidx.recyclerview.widget.RecyclerView>
     <!-- Contenedor para el total -->
     <LinearLayout
         android:id="@+id/layout_total_pedido"
@@ -122,26 +127,23 @@
             android:textColor="#3A1F5D"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp"
-            /> <!-- Espaciado entre el texto y los botones -->
+            android:layout_marginBottom="16dp" />
 
         <!-- Botones para eliminar carrito y procesar pedido -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">     <Button
-            android:id="@+id/btn_eliminar_carrito"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Eliminar Carrito"
-            android:backgroundTint="#D32F2F"
-            android:textColor="#FFFFFF"
-            android:layout_marginEnd="8dp"/>
-
-
-
+            android:gravity="center">
+            <Button
+                android:id="@+id/btn_eliminar_carrito"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Eliminar Carrito"
+                android:backgroundTint="#D32F2F"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="8dp"/>
             <Button
                 android:id="@+id/btn_procesar_pedido"
                 android:layout_width="0dp"
@@ -152,7 +154,6 @@
                 android:textColor="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
-
 
     <TextView
         android:id="@+id/textView2"
@@ -166,6 +167,7 @@
         android:text="Productos"
         android:textSize="24sp"
         android:textStyle="bold" />
+
     <!-- Icono de cerrar sesión -->
     <FrameLayout
         android:layout_width="wrap_content"
@@ -180,7 +182,6 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:srcCompat="@drawable/intercambio" />
-    </FrameLayout><!-- Reemplaza con tu icono -->
-
+    </FrameLayout>
 
 </RelativeLayout>

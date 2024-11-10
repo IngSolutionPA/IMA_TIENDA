@@ -75,5 +75,11 @@ interface ApiService {
     @GET("compras/disponible/{cedula}")
     fun obtenerProductosDisponibles(@Path("cedula") cedula: String): Call<List<ProductoDisponible>>
 
+    @POST("compras/registrar_pedido/")
+    fun registrarPedido(@Body pedido: Pedido): Call<Pedido> // Se espera un objeto Pedido para registrar
+
+    @GET("pedidos/{cedula}")
+    fun obtenerHistorialPedidos(@Path("cedula") cedula: String): Call<List<Pedidos_pendientes>>
+
 
 }

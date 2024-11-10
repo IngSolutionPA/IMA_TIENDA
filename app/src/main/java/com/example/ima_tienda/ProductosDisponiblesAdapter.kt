@@ -159,6 +159,17 @@ class ProductosDisponiblesAdapter(
         total = 0.0
         onTotalChanged(total) // Llamar al callback para actualizar el total en la actividad
     }
+    fun obtenerProductosSeleccionados(): List<ProductoSeleccionado> {
+        val productosSeleccionados = mutableListOf<ProductoSeleccionado>()
+        for (position in seleccionados) {
+            val producto = productos[position]
+            val cantidad = cantidadesSeleccionadas[position] ?: 0
+            if (cantidad > 0) {
+                productosSeleccionados.add(ProductoSeleccionado(producto, cantidad))
+            }
+        }
+        return productosSeleccionados
+    }
 
     class ProductosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nombreTextView: TextView = itemView.findViewById(R.id.text_nombre_producto)
