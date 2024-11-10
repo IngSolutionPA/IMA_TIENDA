@@ -53,10 +53,10 @@ class VerificarPersonaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verificar_persona)
-        val manualRegistrationButton: Button = findViewById(R.id.button_manual_registration)
-        manualRegistrationButton.setOnClickListener {
-            showManualRegistrationDialog()
-        }
+        val consultaButton: Button = findViewById(R.id.button_consultar_cedula)
+
+        val cedulaInput = findViewById<EditText>(R.id.cedulaInput)
+
         apiService = ApiClient.getApiService()
         logoutIcon = findViewById(R.id.logout_icon)
         previewView = findViewById(R.id.previewView)
@@ -78,6 +78,21 @@ class VerificarPersonaActivity : AppCompatActivity() {
         // Configuración del botón de logout
         logoutIcon.setOnClickListener {
             logout()
+        }
+
+        consultaButton.setOnClickListener {
+            // Obtén la cédula ingresada en el campo de texto
+            val cedula = cedulaInput.text.toString().trim()
+
+            verificarUsuario(cedula) { usuario ->
+                if (usuario == null) {
+                    showManualRegistrationDialog(cedula) // Mostrar formulario
+                } else {
+                    val intent = Intent(this, ComprasActivity::class.java)
+                    intent.putExtra("CEDULA", cedula)
+                    startActivity(intent)
+                }
+            }
         }
 
     }
@@ -232,9 +247,11 @@ class VerificarPersonaActivity : AppCompatActivity() {
             restartScanning()
         }
 
+
         // Mostrar el diálogo
         dialog.show()
     }
+
 
     private fun getCurrentDate(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -267,9 +284,10 @@ class VerificarPersonaActivity : AppCompatActivity() {
 
 
 
-    private fun showManualRegistrationDialog() {
+    private fun showManualRegistrationDialog(cedula: String) {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_manual_registration)
+
 
         // Ajustar el tamaño del diálogo
         dialog.window?.setLayout(
@@ -283,7 +301,7 @@ class VerificarPersonaActivity : AppCompatActivity() {
         val fechaNacimientoEditText: EditText = dialog.findViewById(R.id.edit_fecha_nacimiento)
         val nacionalidadEditText: EditText = dialog.findViewById(R.id.edit_nacionalidad)
         val saveButton: Button = dialog.findViewById(R.id.button_save)
-
+        cedulaEditText.setText(cedula)
         // Configurar el DatePickerDialog para la fecha de nacimiento
         fechaNacimientoEditText.setOnClickListener {
             showDatePickerDialog(fechaNacimientoEditText)
@@ -365,6 +383,9 @@ class VerificarPersonaActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@VerificarPersonaActivity, "Usuario agregado con éxito", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@VerificarPersonaActivity, ComprasActivity::class.java)
+                    intent.putExtra("CEDULA", cedula)
+                    startActivity(intent)
                 } else {
                     Log.e("API", "Error al agregar usuario: ${response.code()}")
                 }

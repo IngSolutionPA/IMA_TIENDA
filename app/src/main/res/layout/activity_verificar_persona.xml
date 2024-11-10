@@ -52,14 +52,15 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="221dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="168dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="123dp"
         android:background="@drawable/rounded_background"
         android:contentDescription="Vista previa de la cámara">
 
     </androidx.camera.view.PreviewView>
+
     <Button
         android:id="@+id/button_manual_registration"
         android:layout_width="wrap_content"
@@ -67,7 +68,9 @@
         android:text="Registro Manual"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/scanResult"
@@ -90,10 +93,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="406dp"
-        android:layout_marginEnd="93dp"
-        android:layout_marginBottom="126dp"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="447dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginBottom="85dp"
         app:srcCompat="@drawable/log" />
 
     <TextView
@@ -107,6 +110,31 @@
         android:text="Validación de Cédula"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+    <!-- Botón para consultar la cédula -->
+
+    <EditText
+        android:id="@+id/cedulaInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/rounded_background"
+        android:gravity="center"
+        android:hint="Ingrese la cédula"
+        android:inputType="text"
+        android:padding="12dp" />
+
+    <Button
+        android:id="@+id/button_consultar_cedula"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cedulaInput"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Consultar Cédula" />
     <!-- Icono de cerrar sesión -->
     <FrameLayout
         android:layout_width="wrap_content"
