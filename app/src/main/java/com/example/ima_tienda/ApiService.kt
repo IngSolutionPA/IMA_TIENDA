@@ -66,7 +66,6 @@ interface ApiService {
     @GET("usuarios/{cedula}")
     fun verificarUsuario(@Path("cedula") cedula: String): Call<List<Usuario>>
 
-
     @POST("usuarios/app/") // Asegúrate de que la URL sea correcta
     fun loginUsuario(@Body loginRequest: LoginRequest): Call<LoginResponse>
 
@@ -85,5 +84,7 @@ interface ApiService {
     @PUT("pedidos/cancelar/{pedido_id}")
     fun cancelarPedido(@Path("pedido_id") pedidoId: Int): Call<Void>
 
+    @GET("ventas/{feriaSeleccionadaId}")
+    fun obtenerPedidosPorFeria(@Path("feriaSeleccionadaId") feriaSeleccionadaId: Int): Call<List<Pedidos_pendientes>>
 
 }

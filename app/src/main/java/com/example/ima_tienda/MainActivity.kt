@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
     // Elementos de menú disponibles
     private val allMenuItems = listOf(
         MenuItem("Verificador", R.drawable.qr),
-        MenuItem("Inventario", R.drawable.inventory)
+        MenuItem("Inventario", R.drawable.inventory),
+        MenuItem("Ventas", R.drawable.ventas)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,6 +94,7 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.title) {
                 "Verificador" -> startActivity(Intent(this, VerificarPersonaActivity::class.java))
                 "Inventario" -> startActivity(Intent(this, InventarioActivity::class.java)) // Solo si el nivel permite
+                "Ventas" -> startActivity(Intent(this, VentasActivity::class.java))
             }
         }
         menuRecyclerView.adapter = adapter

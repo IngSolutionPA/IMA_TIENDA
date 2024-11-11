@@ -178,17 +178,42 @@
         android:layout_marginBottom="8dp"
         android:textStyle="bold" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/cancelar_pedido_button"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:padding="10dp"
-        android:text="Cancelar Pedido"
-        android:textSize="10sp"
-        app:backgroundTint="#333333"
-        app:cornerRadius="16dp"
-        app:icon="@drawable/ic_cancel"
-        app:iconPadding="8dp"
-        app:iconSize="40dp"
-        app:iconTint="@null" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:padding="8dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancelar_pedido_button"
+            android:layout_width="34dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="Cancelar Pedido"
+            android:textSize="10sp"
+            app:backgroundTint="#333333"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/ic_cancel"
+            app:iconPadding="8dp"
+            app:iconSize="40dp"
+            app:iconTint="@null" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/pagar_pedido_button"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Realizar Pago"
+            android:textSize="10sp"
+            app:backgroundTint="#36991A"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/pago"
+            app:iconPadding="8dp"
+            app:iconSize="30dp"
+            app:iconTint="@null" />
+    </LinearLayout>
+
 </LinearLayout>

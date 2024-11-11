@@ -242,8 +242,8 @@
                 app:backgroundTint="#333333"
                 app:cornerRadius="16dp"
                 app:icon="@drawable/carrito"
-                app:iconPadding="8dp"
-                app:iconSize="40dp"
+                app:iconPadding="0dp"
+                app:iconSize="35dp"
                 android:layout_marginEnd="8dp"
                 app:iconTint="@null" />
 
@@ -258,8 +258,8 @@
                 app:backgroundTint="#333333"
                 app:cornerRadius="16dp"
                 app:icon="@drawable/procesar_pedido"
-                app:iconPadding="8dp"
-                app:iconSize="40dp"
+                app:iconPadding="0dp"
+                app:iconSize="35dp"
                 android:layout_marginEnd="8dp"
                 app:iconTint="@null" />
         </LinearLayout>
