@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2A837">
+    android:background="#1b914b">
 
     <!-- Imagen de productos -->
     <ImageView
@@ -96,8 +96,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:src="@drawable/ic_pedidos"
                 />
 
@@ -127,9 +127,9 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_historial"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/orden"
                />
 
                 <TextView
@@ -155,6 +155,22 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/compra" />
+    <!-- Añadir en activity_compras.xml -->
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/errorLottieView"
+        android:layout_width="277dp"
+        android:layout_height="218dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="78dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="151dp"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/pedido_vacio" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_compras"
@@ -214,24 +230,38 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <Button
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_eliminar_carrito"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_weight="1"
-                android:text="Eliminar Carrito"
-                android:backgroundTint="#D3812F"
-                android:textColor="#FFFFFF"
-                android:layout_marginEnd="8dp" />
+                android:padding="16dp"
+                android:text="Vaciar Carrito"
+                android:textSize="9sp"
+                app:backgroundTint="#333333"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/carrito"
+                app:iconPadding="8dp"
+                app:iconSize="40dp"
+                android:layout_marginEnd="8dp"
+                app:iconTint="@null" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_procesar_pedido"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_weight="1"
+                android:padding="16dp"
                 android:text="Procesar Pedido"
-                android:backgroundTint="#3F3E42"
-                android:textColor="#FFFFFF" />
+                android:textSize="9sp"
+                app:backgroundTint="#333333"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/procesar_pedido"
+                app:iconPadding="8dp"
+                app:iconSize="40dp"
+                android:layout_marginEnd="8dp"
+                app:iconTint="@null" />
         </LinearLayout>
 
     </LinearLayout>
@@ -243,10 +273,10 @@
         android:layout_alignTop="@+id/imageView3"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="35dp"
         android:gravity="center"
-        android:text="Productos"
-        android:textSize="24sp"
+        android:text="Instituto de Mercadeo Agropecuario"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
     <!-- Icono de cerrar sesión -->

@@ -30,6 +30,7 @@ class ComprasActivity : AppCompatActivity() {
     private lateinit var productosDisponiblesAdapter: ProductosDisponiblesAdapter
     private lateinit var clienteTextView: TextView
     private lateinit var loadingAnimation: LottieAnimationView
+    private lateinit var errorLottieView: LottieAnimationView
     private var cedula: String? = null // Almacenar la cédula del cliente
     private lateinit var logoutIcon: ImageView
     private lateinit var btnComprarProductos: CardView
@@ -37,11 +38,12 @@ class ComprasActivity : AppCompatActivity() {
     private lateinit var btnHistorialPedidos: CardView
     private lateinit var textViewTotal: TextView
     private lateinit var pedidosAdapter: PedidosAdapter
+    private var feriaSeleccionadaId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_compras)
-        window.statusBarColor = Color.parseColor("#F2A837") // cambiamos el status bar
+        window.statusBarColor = Color.parseColor("#1b914b") // cambiamos el status bar
 
         // Inicializar vistas
         apiService = ApiClient.getApiService()
@@ -51,6 +53,9 @@ class ComprasActivity : AppCompatActivity() {
         btnHistorialCompras = findViewById(R.id.btn_historial_compras)
         btnHistorialPedidos = findViewById(R.id.btn_historial_pedidos)
         textViewTotal = findViewById(R.id.textViewTotal)
+        val sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE)
+        feriaSeleccionadaId = sharedPreferences.getInt("feria_seleccionada", -1)
+
 
         // Configuración de RecyclerView para el historial de compras
         recyclerView = findViewById(R.id.recycler_compras)
@@ -69,6 +74,7 @@ class ComprasActivity : AppCompatActivity() {
         cedula = intent.getStringExtra("CEDULA") ?: ""
         clienteTextView.text = "Cliente: ${cedula}"
         loadingAnimation = findViewById(R.id.loadingAnimation)
+        errorLottieView = findViewById(R.id.errorLottieView)
 
         // Asignar listeners a los botones
         btnComprarProductos.setOnClickListener {
@@ -125,10 +131,12 @@ class ComprasActivity : AppCompatActivity() {
                     Toast.makeText(this@ComprasActivity, "Error al cargar pedidos", Toast.LENGTH_SHORT).show()
                 }
                 loadingAnimation.visibility = View.GONE
+                errorLottieView.visibility = View.GONE
             }
 
             override fun onFailure(call: Call<List<Pedidos_pendientes>>, t: Throwable) {
-                Toast.makeText(this@ComprasActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@ComprasActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                errorLottieView.visibility = View.VISIBLE
                 loadingAnimation.visibility = View.GONE
             }
         })
@@ -154,6 +162,7 @@ class ComprasActivity : AppCompatActivity() {
         // Crear el objeto de pedido
         val pedido = Pedido(
             cedulaCliente = cedula!!,
+            feriaSeleccionadaId= feriaSeleccionadaId,
             totalPedido = total,
             fechaPedido = obtenerFechaActual(),
             productos = productosSeleccionados
@@ -173,11 +182,13 @@ class ComprasActivity : AppCompatActivity() {
                     Toast.makeText(this@ComprasActivity, "Error al procesar el pedido", Toast.LENGTH_SHORT).show()
                 }
                 loadingAnimation.visibility = View.GONE
+                errorLottieView.visibility = View.GONE
             }
 
             override fun onFailure(call: Call<Pedido>, t: Throwable) {
                 Toast.makeText(this@ComprasActivity, "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
                 loadingAnimation.visibility = View.GONE
+                errorLottieView.visibility = View.GONE
             }
         })
     }
@@ -195,11 +206,13 @@ class ComprasActivity : AppCompatActivity() {
                     Toast.makeText(this@ComprasActivity, "Error al cancelar el pedido", Toast.LENGTH_SHORT).show()
                 }
                 loadingAnimation.visibility = View.GONE
+                errorLottieView.visibility = View.GONE
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 Toast.makeText(this@ComprasActivity, "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
                 loadingAnimation.visibility = View.GONE
+                errorLottieView.visibility = View.GONE
             }
         })
     }
@@ -261,6 +274,7 @@ class ComprasActivity : AppCompatActivity() {
                             ).show()
                         }
                         loadingAnimation.visibility = View.GONE
+                        errorLottieView.visibility = View.GONE
                         recyclerView.visibility = View.VISIBLE
                     } else {
                         Toast.makeText(
@@ -275,6 +289,7 @@ class ComprasActivity : AppCompatActivity() {
                     Toast.makeText(this@ComprasActivity, "Error: ${t.message}", Toast.LENGTH_SHORT)
                         .show()
                     loadingAnimation.visibility = View.GONE
+                    errorLottieView.visibility = View.GONE
                 }
             })
         }
@@ -310,6 +325,7 @@ class ComprasActivity : AppCompatActivity() {
                             ).show()
                         }
                         loadingAnimation.visibility = View.GONE
+                        errorLottieView.visibility = View.GONE
                         recyclerView.visibility = View.VISIBLE
                     } else {
                         Toast.makeText(
@@ -318,6 +334,7 @@ class ComprasActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                         loadingAnimation.visibility = View.GONE
+                        errorLottieView.visibility = View.GONE
                     }
                 }
 
@@ -328,6 +345,7 @@ class ComprasActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     loadingAnimation.visibility = View.GONE
+                    errorLottieView.visibility = View.GONE
                 }
             })
         } else {

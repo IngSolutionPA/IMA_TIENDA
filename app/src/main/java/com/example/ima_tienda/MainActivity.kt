@@ -1,6 +1,7 @@
 package com.example.ima_tienda
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.AdapterView
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         menuRecyclerView.layoutManager = GridLayoutManager(this, 2)
         logoutIcon = findViewById(R.id.logout_icon)
         feriasSpinner = findViewById(R.id.feriasSpinner)
-
+        window.statusBarColor = Color.parseColor("#1b914b") // cambiamos el status bar
         val sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
         val nombre = sharedPreferences.getString("nombre", "No disponible")
         val nivel = sharedPreferences.getInt("nivel", 0)
