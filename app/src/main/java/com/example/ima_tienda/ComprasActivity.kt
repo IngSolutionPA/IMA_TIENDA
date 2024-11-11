@@ -2,6 +2,7 @@ package com.example.ima_tienda
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,15 +32,16 @@ class ComprasActivity : AppCompatActivity() {
     private lateinit var loadingAnimation: LottieAnimationView
     private var cedula: String? = null // Almacenar la cédula del cliente
     private lateinit var logoutIcon: ImageView
-    private lateinit var btnComprarProductos: Button
-    private lateinit var btnHistorialCompras: Button
-    private lateinit var btnHistorialPedidos: Button
+    private lateinit var btnComprarProductos: CardView
+    private lateinit var btnHistorialCompras: CardView
+    private lateinit var btnHistorialPedidos: CardView
     private lateinit var textViewTotal: TextView
     private lateinit var pedidosAdapter: PedidosAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_compras)
+        window.statusBarColor = Color.parseColor("#F2A837") // cambiamos el status bar
 
         // Inicializar vistas
         apiService = ApiClient.getApiService()
@@ -103,7 +106,9 @@ class ComprasActivity : AppCompatActivity() {
         loadingAnimation.visibility = View.VISIBLE
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val pedidosAdapter = PedidosAdapter(emptyList())  // Inicializa el adaptador con una lista vacía
+        pedidosAdapter = PedidosAdapter(emptyList()) { pedido ->
+            cancelarPedido(pedido) // Llama a cancelarPedido cuando se hace clic en cancelar
+        }
         recyclerView.adapter = pedidosAdapter
 
         apiService.obtenerHistorialPedidos(cedula!!).enqueue(object : Callback<List<Pedidos_pendientes>> {
@@ -162,7 +167,7 @@ class ComprasActivity : AppCompatActivity() {
                     Toast.makeText(this@ComprasActivity, "Pedido procesado correctamente", Toast.LENGTH_SHORT).show()
                     // Limpiar carrito y actualizar la UI
                     resetCarrito()
-                    loadCompras()  // Método para volver a mostrar los productos disponibles
+                    loadPedidos()
                 } else {
                     // Error al procesar el pedido
                     Toast.makeText(this@ComprasActivity, "Error al procesar el pedido", Toast.LENGTH_SHORT).show()
@@ -177,11 +182,34 @@ class ComprasActivity : AppCompatActivity() {
         })
     }
 
+    private fun cancelarPedido(pedido: PedidoAgrupado) {
+        // Mostrar animación de carga
+        loadingAnimation.visibility = View.VISIBLE
+
+        apiService.cancelarPedido(pedido.pedido_id).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(this@ComprasActivity, "Pedido cancelado correctamente", Toast.LENGTH_SHORT).show()
+                    loadPedidos() // Recargar la lista de pedidos
+                } else {
+                    Toast.makeText(this@ComprasActivity, "Error al cancelar el pedido", Toast.LENGTH_SHORT).show()
+                }
+                loadingAnimation.visibility = View.GONE
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(this@ComprasActivity, "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
+                loadingAnimation.visibility = View.GONE
+            }
+        })
+    }
+
     fun obtenerFechaActual(): String {
         val fecha = Calendar.getInstance().time // Obtiene la fecha y hora actual
         val formato = SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault()) // Define el formato de fecha y hora en 12 horas con AM/PM
         return formato.format(fecha) // Devuelve la fecha y hora formateada como String
     }
+
 
 
     private fun calcularTotalDePedido(productosSeleccionados: List<ProductoSeleccionado>): Double {

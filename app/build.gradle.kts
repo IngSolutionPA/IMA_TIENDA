@@ -75,6 +75,8 @@ dependencies {
     implementation ("com.airbnb.android:lottie:5.0.3")
     // Dependencia de ML Kit para escaneo de códigos de barras
     implementation("com.google.mlkit:barcode-scanning:17.0.3")
+    implementation ("androidx.cardview:cardview:1.0.0")
+
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)

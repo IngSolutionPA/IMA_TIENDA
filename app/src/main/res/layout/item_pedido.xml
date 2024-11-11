@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
     android:background="#FFFFFF"
@@ -176,4 +177,18 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
         android:textStyle="bold" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancelar_pedido_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="16dp"
+        android:text="Cancelar Pedido"
+        android:textSize="12sp"
+        app:backgroundTint="#262626"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/ic_cancel"
+        app:iconPadding="8dp"
+        app:iconSize="40dp"
+        app:iconTint="@null" />
 </LinearLayout>

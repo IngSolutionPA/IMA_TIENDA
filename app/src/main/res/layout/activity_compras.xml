@@ -1,8 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#24BBBB">
+    android:background="#F2A837">
 
     <!-- Imagen de productos -->
     <ImageView
@@ -42,51 +42,108 @@
         android:background="#482FAF"
         android:backgroundTint="#F1F1F1" />
 
-    <TextView
-        android:id="@+id/text_cliente"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
-        android:layout_margin="16dp"
-        android:text="Cliente: "
-        android:textSize="18sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_below="@+id/text_cliente"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="200dp">
 
-        <!-- Botón "Comprar" -->
-        <Button
+        <!-- Botón Productos -->
+        <androidx.cardview.widget.CardView
             android:id="@+id/btn_comprar_productos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Productos"
-            android:textSize="12sp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="#4D8FDB"/>
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
 
-        <!-- Botón "Pedidos" -->
-        <Button
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_productos"
+              />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Productos"
+
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Botón Pedidos -->
+        <androidx.cardview.widget.CardView
             android:id="@+id/btn_historial_pedidos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pedidos"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="#AE4DDB"/>
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
 
-        <!-- Botón "Historial" -->
-        <Button
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_pedidos"
+                />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pedidos"
+
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Botón Historial -->
+        <androidx.cardview.widget.CardView
             android:id="@+id/btn_historial_compras"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Historial"
-            android:backgroundTint="#4DDB52"/>
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_historial"
+               />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Historial"
+
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
+
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loadingAnimation"
@@ -121,23 +178,42 @@
         android:gravity="center"
         android:background="#F0F0F0">
 
-        <!-- Texto Total -->
-        <TextView
-            android:id="@+id/textViewTotal"
-            android:layout_width="wrap_content"
+        <!-- LinearLayout para el Cliente a la izquierda y el Total a la derecha -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Total: $0.00"
-            android:textColor="#3A1F5D"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp" />
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
+
+            <!-- Cliente a la izquierda con layout_weight para el espaciado -->
+            <TextView
+                android:id="@+id/text_cliente"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cliente: "
+                android:textSize="18sp" />
+
+            <!-- Total a la derecha -->
+            <TextView
+                android:id="@+id/textViewTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total: $0.00"
+                android:textColor="#1D1D1D"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingRight="10dp"/>
+        </LinearLayout>
 
         <!-- Botones para eliminar carrito y procesar pedido -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:padding="10dp">
+
             <Button
                 android:id="@+id/btn_eliminar_carrito"
                 android:layout_width="0dp"
@@ -146,16 +222,18 @@
                 android:text="Eliminar Carrito"
                 android:backgroundTint="#D3812F"
                 android:textColor="#FFFFFF"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="8dp" />
+
             <Button
                 android:id="@+id/btn_procesar_pedido"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Procesar Pedido"
-                android:backgroundTint="#3A1F5D"
-                android:textColor="#FFFFFF"/>
+                android:backgroundTint="#3F3E42"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
+
     </LinearLayout>
 
     <TextView

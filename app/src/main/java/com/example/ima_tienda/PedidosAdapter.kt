@@ -4,13 +4,14 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class PedidosAdapter(private var pedidos: List<PedidoAgrupado>) : RecyclerView.Adapter<PedidosAdapter.PedidoViewHolder>() {
+class PedidosAdapter(private var pedidos: List<PedidoAgrupado>, private val onCancelarClick: (PedidoAgrupado) -> Unit ) : RecyclerView.Adapter<PedidosAdapter.PedidoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PedidoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_pedido, parent, false)
@@ -77,6 +78,10 @@ class PedidosAdapter(private var pedidos: List<PedidoAgrupado>) : RecyclerView.A
         Glide.with(holder.itemView.context)
             .load(qrUrl)
             .into(holder.codigoQR)
+
+        holder.cancelarButton.setOnClickListener {
+            onCancelarClick(pedido) // Llama a la función pasada como parámetro
+        }
     }
 
     override fun getItemCount(): Int = pedidos.size
@@ -93,5 +98,6 @@ class PedidosAdapter(private var pedidos: List<PedidoAgrupado>) : RecyclerView.A
         val productosPedidoContainer: LinearLayout = itemView.findViewById(R.id.productos_pedido_container)  // Cambié el ID a container
         val codigoQR: ImageView = itemView.findViewById(R.id.codigo_qr)
         val estadoPedido: TextView =  itemView.findViewById(R.id.estado_pedido)
+        val cancelarButton: Button = itemView.findViewById(R.id.cancelar_pedido_button)
     }
 }
