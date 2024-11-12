@@ -112,9 +112,11 @@ class ComprasActivity : AppCompatActivity() {
         loadingAnimation.visibility = View.VISIBLE
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        pedidosAdapter = PedidosAdapter(emptyList()) { pedido ->
-            cancelarPedido(pedido) // Llama a cancelarPedido cuando se hace clic en cancelar
-        }
+        pedidosAdapter = PedidosAdapter(emptyList(), onCancelarClick = { pedido ->
+            cancelarPedido(pedido)
+        }, onPagarClick = { pedido ->
+            procesarPago(pedido) // Procesar el pago al hacer clic en pagar
+        })
         recyclerView.adapter = pedidosAdapter
 
         apiService.obtenerHistorialPedidos(cedula!!).enqueue(object : Callback<List<Pedidos_pendientes>> {
@@ -189,6 +191,29 @@ class ComprasActivity : AppCompatActivity() {
                 Toast.makeText(this@ComprasActivity, "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
                 loadingAnimation.visibility = View.GONE
                 errorLottieView.visibility = View.GONE
+            }
+        })
+    }
+
+    private fun procesarPago(pedido: PedidoAgrupado) {
+        loadingAnimation.visibility = View.VISIBLE
+
+        // Aquí deberías agregar la lógica para procesar el pago
+        // Ejemplo: llamar a un servicio de pago o redirigir a una pantalla de pago
+        apiService.procesarPago(pedido.pedido_id).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(this@ComprasActivity, "Pago procesado correctamente", Toast.LENGTH_SHORT).show()
+                    loadPedidos() // Recargar los pedidos
+                } else {
+                    Toast.makeText(this@ComprasActivity, "Error al procesar el pago", Toast.LENGTH_SHORT).show()
+                }
+                loadingAnimation.visibility = View.GONE
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(this@ComprasActivity, "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
+                loadingAnimation.visibility = View.GONE
             }
         })
     }

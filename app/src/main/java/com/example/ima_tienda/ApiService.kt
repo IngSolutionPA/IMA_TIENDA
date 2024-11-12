@@ -87,4 +87,7 @@ interface ApiService {
     @GET("ventas/{feriaSeleccionadaId}")
     fun obtenerPedidosPorFeria(@Path("feriaSeleccionadaId") feriaSeleccionadaId: Int): Call<List<Pedidos_pendientes>>
 
+    @POST("ventas/pagos/{pedido_id}")
+    fun procesarPago(@Path("pedido_id") pedidoId: Int): Call<Void>
+
 }

@@ -9,7 +9,8 @@ data class Pedidos_pendientes(
     val cantidad: Int,
     val precio: Double,
     val codigo_qr: String,
-    val estado: String
+    val estado: String,
+    val cedula_cliente: String
 )
 
 fun groupPedidos(pedidos: List<Pedidos_pendientes>): List<PedidoAgrupado> {

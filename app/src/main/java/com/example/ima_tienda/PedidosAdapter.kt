@@ -11,7 +11,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class PedidosAdapter(private var pedidos: List<PedidoAgrupado>, private val onCancelarClick: (PedidoAgrupado) -> Unit ) : RecyclerView.Adapter<PedidosAdapter.PedidoViewHolder>() {
+class PedidosAdapter(
+    private var pedidos: List<PedidoAgrupado>,
+    private val onCancelarClick: (PedidoAgrupado) -> Unit,
+    private val onPagarClick: (PedidoAgrupado) -> Unit
+) : RecyclerView.Adapter<PedidosAdapter.PedidoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PedidoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_pedido, parent, false)
@@ -79,8 +83,14 @@ class PedidosAdapter(private var pedidos: List<PedidoAgrupado>, private val onCa
             .load(qrUrl)
             .into(holder.codigoQR)
 
+        // Configuración del botón de cancelar
         holder.cancelarButton.setOnClickListener {
-            onCancelarClick(pedido) // Llama a la función pasada como parámetro
+            onCancelarClick(pedido)
+        }
+
+        // Configuración del botón de pago
+        holder.pagarButton.setOnClickListener {
+            onPagarClick(pedido)
         }
     }
 
@@ -91,13 +101,15 @@ class PedidosAdapter(private var pedidos: List<PedidoAgrupado>, private val onCa
         notifyDataSetChanged()
     }
 
+
     class PedidoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val numPedido: TextView = itemView.findViewById(R.id.num_pedido)
         val fechaPedido: TextView = itemView.findViewById(R.id.fecha_pedido)
         val totalPedido: TextView = itemView.findViewById(R.id.total_pedido)
-        val productosPedidoContainer: LinearLayout = itemView.findViewById(R.id.productos_pedido_container)  // Cambié el ID a container
+        val productosPedidoContainer: LinearLayout = itemView.findViewById(R.id.productos_pedido_container)
         val codigoQR: ImageView = itemView.findViewById(R.id.codigo_qr)
-        val estadoPedido: TextView =  itemView.findViewById(R.id.estado_pedido)
+        val estadoPedido: TextView = itemView.findViewById(R.id.estado_pedido)
         val cancelarButton: Button = itemView.findViewById(R.id.cancelar_pedido_button)
+        val pagarButton: Button = itemView.findViewById(R.id.pagar_pedido_button)
     }
 }

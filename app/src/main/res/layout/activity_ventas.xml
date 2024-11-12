@@ -39,32 +39,56 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="-17dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="-62dp"
+        android:layout_marginBottom="-142dp"
         android:background="#482FAF"
         android:backgroundTint="#F1F1F1" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loadingAnimation"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="431dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="102dp"
         android:visibility="visible"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/compra" />
+    <!-- Barra de búsqueda (SearchView dentro de MaterialCardView) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="match_parent"
+        android:layout_height="931dp"
+        android:layout_above="@+id/recycler_compras"
+        android:layout_below="@id/imageView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="-110dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="12dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="376dp"
+            android:layout_height="60dp"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@android:color/transparent"
+            app:queryHint="Buscar cedula..." />
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_compras"
         android:layout_width="match_parent"
-        android:layout_height="402dp"
+        android:layout_height="401dp"
         android:layout_below="@+id/imageView"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="128dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="62dp"
-      />
+        android:layout_marginBottom="0dp" />
 
     <TextView
         android:id="@+id/textView2"
